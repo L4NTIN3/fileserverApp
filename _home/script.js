@@ -1,7 +1,9 @@
 function SaveFile(){
-    console.log("toimii")
-    const ip = "192.168.1.121"
+    
+    //change to your own local ip
+    const ip = "192.168.1.121";
 
+    
     var input = document.getElementById("insertedFile")
     var formData = new FormData()
     formData.append("file", input.files[0])

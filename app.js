@@ -3,6 +3,9 @@ const cors = require("cors");
 const app = express()
 const path = require("path")
 const multer = require("multer")
+const dotenv = require("dotenv")
+
+dotenv.config();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -13,11 +16,13 @@ const storage = multer.diskStorage({
         cb(null, uniqueSuffix + path.extname(file.originalname))
     }
 })
-const ip = "192.168.1.121"
+// const ip = "192.168.1.121"
+const ip = process.env.IP_ADDRESS;
+
 const upload = multer({ storage })
 
 const corsOptions = {
-    origin: "http://192.168.1.121:3000",
+    origin: "*",
 }
 
 app.use(cors(corsOptions))
@@ -41,5 +46,5 @@ app.post(`/tallenna`, upload.single("file"), (req, res) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, ip, () => {
-    console.log(`Server is running on port ${port}`)
+    console.log(`Server is running on port ${port} on IP: ${ip}`)
 }) 
